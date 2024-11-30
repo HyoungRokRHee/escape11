@@ -51,13 +51,15 @@
             color: red;
             font-weight: bold;
         }
-        audio {
-            margin-top: 30px;
-        }
         .stage-indicator {
             font-size: 1.5em;
             font-weight: bold;
             margin-bottom: 10px;
+        }
+        .stage-image {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -71,11 +73,8 @@
         <!-- 스테이지 표시 -->
         <div class="stage-indicator" id="stageIndicator">1 Stage</div>
 
-        <!-- 중앙에 오디오 플레이어 배치 -->
-        <audio controls id="audioPlayer">
-            <source src="https://github.com/HyoungRokRHee/escape7/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <!-- 중앙에 이미지 배치 -->
+        <img id="stageImage" class="stage-image" src="https://github.com/HyoungRokRHee/escape7/raw/main/tv1.png?raw=true" alt="Stage Image">
 
         <!-- 정답 입력란 -->
         <input type="text" id="answerInput" placeholder="정답 입력">
@@ -94,7 +93,7 @@
                 document.getElementById("passwordInput").style.display = "none";
                 document.getElementById("passwordButton").style.display = "none"; // ID로 버튼 숨기기
                 const passwordMessage = document.getElementById("passwordMessage");
-                passwordMessage.innerHTML = "내가 기억을 잃게 된 순간을 기억해냈다.<br>어느 날이였어 내 자취방에 누가 몰래 들어와서 내 머리를 치고 갔어.<br>아..!! 상황은 기억이 나는데<br>그 사람 얼굴만 기억이 안나!<br>근데 그 사람이 내 집을 어떻게 알고 있었지...<br>내가 그때 예능을 보고 있었을거야... 기억을 더듬어보자";
+                passwordMessage.innerHTML = "내가 기억을 잃게 된 순간을 기억해냈다.<br>어느 날이였어 내 자취방에 누가 몰래 들어와서 내 머리를 치고 갔어.<br>아..!! 상황은 기억이 나는데<br>그 사람 얼굴만 기억이 안나!<br>근데 그 사람이 내 집을 어떻게 알고 있었지...<br>내가 그때 예능을 보고 있었을거야... 기억을 더듬어보자<br><br><br>해당화면을 보고 들어갈 유행어, 단어, 문장등을 쓰세요";
                 passwordMessage.style.marginTop = "20px"; // 아래로 내리기
                 passwordMessage.style.fontSize = "0.6em"; // 글자 크기 절반으로 줄이기
             } else {
@@ -105,17 +104,17 @@
         function checkAnswer() {
             const answer = document.getElementById("answerInput").value.toUpperCase();
 
-            if (stage === 1 && answer === "서울의 봄") {
+            if (stage === 1 && answer === "공기 반 소리 반") {
                 // 두 번째 단계로 이동
                 stage = 2;
                 updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie2.mp3?raw=true", "베테랑2");
-            } else if (stage === 2 && answer === "베테랑2") {
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/tv2.png?raw=true", "베테랑2");
+            } else if (stage === 2 && answer === "형이 왜 거기서 나와") {
                 // 세 번째 단계로 이동
                 stage = 3;
                 updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie3.mp3?raw=true", "파일럿");
-            } else if (stage === 3 && answer === "파일럿") {
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/tv3.png?raw=true", "파일럿");
+            } else if (stage === 3 && answer === "니네들이 뭔데 날 판단해") {
                 // 마지막 페이지로 이동
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
@@ -130,11 +129,10 @@
             }
         }
 
-        function loadNextPuzzle(audioSrc, nextAnswer) {
-            // 오디오 소스 변경
-            const audioPlayer = document.getElementById("audioPlayer");
-            audioPlayer.src = audioSrc;
-            audioPlayer.load();
+        function loadNextPuzzle(imageSrc, nextAnswer) {
+            // 이미지 소스 변경
+            const stageImage = document.getElementById("stageImage");
+            stageImage.src = imageSrc;
             
             // 정답 입력란 초기화
             document.getElementById("answerInput").value = "";
