@@ -74,7 +74,7 @@
         <div class="stage-indicator" id="stageIndicator">1 Stage</div>
 
         <!-- 중앙에 이미지 배치 -->
-        <img id="stageImage" class="stage-image" src="https://github.com/HyoungRokRHee/escape7/raw/main/tv1.png?raw=true" alt="Stage Image">
+        <img id="stageImage" class="stage-image" src="https://github.com/HyoungRokRHee/escape11/raw/main/tv1.png?raw=true" alt="Stage Image">
 
         <!-- 정답 입력란 -->
         <input type="text" id="answerInput" placeholder="정답 입력">
@@ -108,12 +108,12 @@
                 // 두 번째 단계로 이동
                 stage = 2;
                 updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/tv2.png?raw=true", "베테랑2");
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape11/raw/main/tv2.png?raw=true", "베테랑2");
             } else if (stage === 2 && answer === "형이 왜 거기서 나와") {
                 // 세 번째 단계로 이동
                 stage = 3;
                 updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/tv3.png?raw=true", "파일럿");
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape11/raw/main/tv3.png?raw=true", "파일럿");
             } else if (stage === 3 && answer === "니네들이 뭔데 날 판단해") {
                 // 마지막 페이지로 이동
                 document.body.innerHTML = `
