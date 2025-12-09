@@ -1,155 +1,26 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로기네 탈출 11번</title>
-    <style>
+import { useState } from 'react';
+
+function LoginPage() {
+  const [isLogin, setIsLogin] = useState(true); // 로그인 <-> 회원가입 전환용
+
+  return (
+    <div style={{ maxWidth: '400px', margin: 'auto', textAlign: 'center' }}>
+      <h2>{isLogin ? '로그인' : '회원가입'}</h2>
+      <form style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <input type="text" placeholder="아이디" style={{ padding: '10px' }} />
+        <input type="password" placeholder="비밀번호" style={{ padding: '10px' }} />
+        {!isLogin && <input type="text" placeholder="이름 (회원가입용)" style={{ padding: '10px' }} />}
         
-
-        /* 전체 배경 이미지 설정 */
-        body {
-            background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            color: white;
-            text-align: center;
-            font-family: 'Dokdo', sans-serif;
-            font-size: 1.2em;
-        }
-        #puzzleSection, #resultSection {
-            display: none;
-            margin-top: 30px; /* 전체 섹션을 아래로 이동 */
-        }
-        input, button {
-            padding: 10px;
-            font-size: 1em;
-            margin: 10px 0;
-        }
-        h2 {
-            margin-top: 50px;
-        }
-        #passwordMessage {
-            font-size: 0.6em; /* 글자 크기 절반으로 줄이기 */
-            margin-top: 20px; /* 아래로 내리기 */
-            line-height: 1.5em; /* 줄 간격 조절 */
-        }
-        #result.success {
-            color: red;
-            font-weight: bold;
-        }
-        .stage-indicator {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .stage-image {
-            max-width: 90%;
-            height: auto;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <h2 id="passwordMessage">비밀번호를 입력하세요</h2>
-    <input type="text" id="passwordInput" placeholder="비밀번호 입력">
-    <button id="passwordButton" onclick="checkPassword()">확인</button>
-
-    <div id="puzzleSection">
-        <!-- 스테이지 표시 -->
-        <div class="stage-indicator" id="stageIndicator">1 Stage</div>
-
-        <!-- 중앙에 이미지 배치 -->
-        <img id="stageImage" class="stage-image" src="https://github.com/HyoungRokRHee/escape11/raw/main/tv1.png?raw=true" alt="Stage Image">
-
-        <!-- 정답 입력란 -->
-        <input type="text" id="answerInput" placeholder="정답 입력">
-        <button onclick="checkAnswer()">확인</button>
+        <button type="submit" style={{ padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none' }}>
+          {isLogin ? '로그인하기' : '가입하기'}
+        </button>
+      </form>
+      
+      <p onClick={() => setIsLogin(!isLogin)} style={{ cursor: 'pointer', color: 'blue', marginTop: '10px' }}>
+        {isLogin ? '계정이 없으신가요? 회원가입' : '이미 계정이 있으신가요? 로그인'}
+      </p>
     </div>
+  );
+}
 
-    <p id="result"></p>
-
-    <script>
-        let stage = 1; // 현재 단계 추적
-
- function checkPassword() {
-        const password = document.getElementById("passwordInput").value;
-        if (password === "3573") {
-            document.getElementById("puzzleSection").style.display = "block";
-            document.getElementById("passwordInput").style.display = "none";
-            document.getElementById("passwordButton").style.display = "none"; 
-            
-            // 깨끗한 텍스트로 설정
-            const passwordMessage = document.getElementById("passwordMessage");
-            passwordMessage.innerHTML = `
-                내가 기억을 잃게 된 순간을 기억해냈다.<br>
-                어느 날이었어 내 자취방에 누가 몰래 들어와서 내 머리를 치고 갔어.<br>
-                아..!! 상황은 기억이 나는데<br>
-                그 사람 얼굴만 기억이 안 나!<br>
-                근데 그 사람이 내 집을 어떻게 알고 있었지...<br>
-                내가 그때 예능을 보고 있었을 거야... 기억을 더듬어보자<br><br>
-                해당 화면을 보고 들어갈 유행어, 단어, 문장 등을 쓰세요.
-            `;
-            passwordMessage.style.marginTop = "20px"; 
-            passwordMessage.style.fontSize = "0.6em"; 
-            } else {
-                alert("비밀번호가 틀렸습니다. 다시 시도하세요.");
-            }
-        }
-
-        function checkAnswer() {
-            const answer = document.getElementById("answerInput").value.toUpperCase();
-
-            if (stage === 1 && answer === "공기 반 소리 반") {
-                // 두 번째 단계로 이동
-                stage = 2;
-                updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape11/raw/main/tv2.png?raw=true", "베테랑2");
-            } else if (stage === 2 && answer === "형이 왜 거기서 나와") {
-                // 세 번째 단계로 이동
-                stage = 3;
-                updateStageIndicator(); // 스테이지 표시 업데이트
-                loadNextPuzzle("https://github.com/HyoungRokRHee/escape11/raw/main/tv3.png?raw=true", "파일럿");
-            } else if (stage === 3 && answer === "니네들이 뭔데 날 판단해") {
-                // 마지막 페이지로 이동
-                document.body.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
-                        <h1 style="color: red; font-size: 2em; margin-top: 50px;">5층 초등부로 가세요.</h1>
-                        <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 0000</h2>
-                    </div>
-                `;
-            } else {
-                const result = document.getElementById("result");
-                result.textContent = "틀렸습니다. 다시 시도하세요.";
-                result.className = "";
-            }
-        }
-
-        function loadNextPuzzle(imageSrc, nextAnswer) {
-            // 이미지 소스 변경
-            const stageImage = document.getElementById("stageImage");
-            stageImage.src = imageSrc;
-            
-            // 정답 입력란 초기화
-            document.getElementById("answerInput").value = "";
-            
-            // 힌트 업데이트
-            document.getElementById("result").textContent = ""; // 결과 메시지 초기화
-        }
-
-        function updateStageIndicator() {
-            const stageIndicator = document.getElementById("stageIndicator");
-            stageIndicator.textContent = `${stage} Stage`; // 현재 스테이지 업데이트
-        }
-    </script>
-
-</body>
-</html>
+export default LoginPage;
